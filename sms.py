@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # Download the twilio-python library from http://twilio.com/docs/libraries
 import csv, sys 
-from twilio.rest import TwilioRestClient
+from twilio.rest import Client
 
 MESSAGE_FILE = 'message.txt'     # File containing text message
 CSV_FILE = 'participants.csv'    # File containing participant numbers
 SMS_LENGTH = 160                 # Max length of one SMS message
-MSG_COST = 0.04                  # Cost per message
+MSG_COST = 0.0075                  # Cost per message
 
 # Twilio: Find these values at https://twilio.com/user/account
 account_sid = "<account_sid_goes_here>"
@@ -40,10 +40,10 @@ cost = MSG_COST * segments * messages
 print("> {} messages of {} segments each will be sent, at a cost of ${} ".format(messages, segments, cost))
 
 # Check you really want to send them
-confirm = input("Send these messages? [Y/n] ")
+confirm = raw_input("Send these messages? [Y/n] ")
 if confirm[0].lower() == 'y':
     # Set up Twilio client
-    client = TwilioRestClient(account_sid, auth_token)
+    client = Client(account_sid, auth_token)
 
     # Send the messages
     for num in numbers:
